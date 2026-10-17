@@ -5,14 +5,15 @@ import math
 import time
 import matplotlib.pyplot as plt
 # pygame setup
-pygame.init()
-screen = pygame.display.set_mode((280, 280))
-clock = pygame.time.Clock()
-running = True
+
+#pygame.init()
+#screen = pygame.display.set_mode((280, 280))
+#clock = pygame.time.Clock()
+#running = True
 # data setup
-"""
-data = np.loadtxt('C:/Users/2gaut/Coding!/MachineLearning/mnist_train.csv', delimiter=',', skiprows=1)
-test = np.loadtxt('C:/Users/2gaut/Coding!/MachineLearning/mnist_test.csv', delimiter=',', skiprows=1)
+
+data = np.loadtxt('C:/Users/janan/Coding!/MachineLearning/mnist_train.csv', delimiter=',', skiprows=1)
+test = np.loadtxt('C:/Users/janan/Coding!/MachineLearning/mnist_test.csv', delimiter=',', skiprows=1)
 labels = data[:, 0].astype(int)
 images = data[:, 1:]/255
 labels_t = test[:, 0].astype(int)
@@ -22,14 +23,17 @@ batches = np.hsplit(images.T, 1875)
 correct_t = labels_t.T
 batches_t = np.hsplit(images_t.T, 10000)
 test1 = test[0, 1:].reshape(784, 1)/255
+
+#load weights
 """
-weights = np.load('C:/Users/2gaut/Coding!/MachineLearning/weights.npz')
+weights = np.load('C:/Users/janan/Coding!/MachineLearning/weights.npz')
 Ws = [weights['W0'], weights['W1'], weights['W2']]
 bs = [weights['b0'], weights['b1'], weights['b2']]
 MLP = network.MLP(Ws, bs)
 #print(MLP.predict(test1))
-
+"""
 #game loop
+"""
 prev_pos = None
 while running:
     for event in pygame.event.get():
@@ -86,16 +90,17 @@ while running:
 
     pygame.display.flip()
     clock.tick(60)
-
-# training
 """
-#epoch_n = 7
+# training
+
+epoch_n = 7
+MLP = network.MLP()
 for i in range(0, epoch_n):
     for batch, c in zip(batches, correct):
         MLP.forward(batch)
         J, G_out = MLP.loss(c)
         MLP.backward(G_out)
-        MLP.update(0.1)
+        MLP.update(0.2)
         print(J)
 
 Ws, bs, = MLP.save_weight()
@@ -107,6 +112,6 @@ for i in range(0, len(correct_t)):
    if MLP.predict(batches_t[i]) == correct_t[i]:
        num_correct+=1
 print(f"Accuracy: {num_correct/len(correct_t)}")
-"""
 
-pygame.quit()
+
+#pygame.quit()
